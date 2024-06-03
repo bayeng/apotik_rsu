@@ -21,8 +21,8 @@ return new class extends Migration
             $table->integer('id_tujuan');
             $table->foreign('id_tujuan')->references('id')->on('tujuan');
             $table->enum('status', [""]);
-            $table->dateTime('created_at');
             $table->dateTime('tgl_validasi')->nullable();
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

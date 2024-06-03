@@ -19,9 +19,8 @@ return new class extends Migration
             $table->integer('jenis_obat');
             $table->integer('harga_jual');
             $table->integer('harga_beli');
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at');
             $table->integer('stok');
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

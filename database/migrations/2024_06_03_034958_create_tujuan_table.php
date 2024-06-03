@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('tujuans', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama');
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

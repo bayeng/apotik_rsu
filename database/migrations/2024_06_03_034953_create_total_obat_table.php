@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('id_obat');
             $table->foreign('id_obat')->references('id')->on('obat');
             $table->integer('jumlah');
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

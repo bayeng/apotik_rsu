@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('notlp');
             $table->string('nama_bank');
             $table->string('no_rekening');
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();
