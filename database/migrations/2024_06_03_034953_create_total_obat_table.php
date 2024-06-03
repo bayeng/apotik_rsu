@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('total_obat', function (Blueprint $table) {
+        Schema::create('total_obats', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_permintaan_obat');
             $table->foreign('id_permintaan_obat')->references('id')->on('permintaan_obat');

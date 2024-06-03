@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('permintaan_obat', function (Blueprint $table) {
+        Schema::create('permintaan_obats', function (Blueprint $table) {
             $table->id();
             $table->integer('id_user');
             $table->foreign('id_user')->references('id')->on('user');

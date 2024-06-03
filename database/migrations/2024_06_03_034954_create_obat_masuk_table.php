@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('obat_masuk', function (Blueprint $table) {
+        Schema::create('obat_masuks', function (Blueprint $table) {
             $table->increments('id');
             $table->date('tgl_datang');
             $table->bigInteger('jumlah');

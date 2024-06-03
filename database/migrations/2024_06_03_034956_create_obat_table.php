@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('obat', function (Blueprint $table) {
+        Schema::create('obats', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama');
             $table->integer('jenis_obat');
