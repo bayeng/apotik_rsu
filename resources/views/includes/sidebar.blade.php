@@ -1,3 +1,3 @@
-<nav class="w-100 bg-primary vh-100 top-0">
+<nav class="position-fixed bg-primary vh-100" style="width: 15%">
     <a href="" class="text-white p-3 w-100">Home</a>
 </nav>

@@ -6,6 +6,7 @@
 </head>
 
 <body>
+    @include('includes.navbar')
     <main class="d-flex gap-3">
         <div class="" style="width: 15%">
             @include('includes.sidebar')
