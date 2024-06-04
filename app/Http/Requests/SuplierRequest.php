@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class SuplierRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class SuplierRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +23,38 @@ class SuplierRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $rules = [
+            'nama' => 'required | unique:supliers,nama',
+            'alamat' => 'required',
+            'kota' => 'required',
+            'notlp' => 'required',
+            'nama_bank' => 'required',
+            'no_rekening' => 'required',
         ];
+
+        if ($this->isMethod('put') || $this->isMethod('patch')) {
+
+            $rules = [
+                'nama' => 'sometimes|unique:supliers,nama',
+                'alamat' => 'sometimes',
+                'kota' => 'sometimes',
+                'notlp' => 'sometimes',
+                'nama_bank' => 'sometimes',
+                'no_rekening' => 'sometimes',
+            ];
+        }
+
+        return $rules;
+
+
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'message' => 'Validation errors',
+            'errors' => $validator->errors()
+        ], 422));
     }
 }

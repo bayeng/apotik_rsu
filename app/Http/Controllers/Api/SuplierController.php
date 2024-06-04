@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SuplierRequest;
 use App\Http\Resources\SuplierResource;
 use App\Models\Suplier;
 use Illuminate\Http\Request;
@@ -18,30 +19,46 @@ class SuplierController extends Controller
         return new SuplierResource(true, 'List data suplier', $suplier);
     }
 
-    public function store(Request $request)
+    public function show($id)
     {
-        $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-            'alamat' => 'required',
-            'kota' => 'required',
-            'notlp' => 'required',
-            'nama_bank' => 'required',
-            'no_rekening' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+        $suplier = Suplier::find($id);
+        if (!$suplier) {
+            return new SuplierResource(false, 'Data suplier tidak ditemukan', null);
         }
 
-        $suplier = Suplier::create([
-            'nama' => $request->nama,
-            'alamat' => $request->alamat,
-            'kota' => $request->kota,
-            'notlp' => $request->notlp,
-            'nama_bank' => $request->nama_bank,
-            'no_rekening' => $request->no_rekening,
-        ]);
+        return new SuplierResource(true, 'Data suplier ditemukan', $suplier);
+    }
+
+    public function store(SuplierRequest $request)
+    {
+        $validateSuplier = $request->validated();
+
+        $suplier = Suplier::create($validateSuplier);
 
         return new SuplierResource(true, 'Data suplier berhasil ditambahkan', $suplier);
     }
+
+    public function update(SuplierRequest $request, $id)
+    {
+        $validateSuplier = $request->validated();
+        $suplier = Suplier::find($id);
+
+        if (!$suplier) {
+            return new SuplierResource(false, 'Data suplier tidak ditemukan', null);
+        }
+
+        $suplier->update($validateSuplier);
+        return new SuplierResource(true, 'Data suplier berhasil diubah', $suplier);
+    }
+
+    public function destroy($id)
+    {
+        $suplier = Suplier::find($id);
+        if (!$suplier) {
+            return new SuplierResource(false, 'Data suplier tidak ditemukan', null);
+        }
+        $suplier->delete();
+        return new SuplierResource(true, 'Data suplier berhasil dihapus', $suplier);
+    }
+
 }
