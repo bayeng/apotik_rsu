@@ -14,7 +14,7 @@ class SuplierController extends Controller
 
     public function index()
     {
-        $suplier = Suplier::latest()->paginate(5);
+        $suplier = Suplier::latest()->get();
 
         return new SuplierResource(true, 'List data suplier', $suplier);
     }
