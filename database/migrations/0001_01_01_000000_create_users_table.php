@@ -21,10 +21,10 @@ return new class extends Migration
             $table->string('agama');
             $table->string('alamat');
             $table->string('notlp');
-            $table->string('NIP');
+            $table->string('nip');
             $table->string('username');
             $table->string('password');
-            $table->enum('role', [""]);
+            $table->enum('role', ["ADMIN","PEGAWAI"])->default('PEGAWAI');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
