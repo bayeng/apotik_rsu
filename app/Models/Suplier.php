@@ -11,20 +11,6 @@ class Suplier extends Model
     use HasFactory;
     public $guarded = ['id'];
 
-    public function validateRequest(array $data)
-    {
-        $validator = Validator::make($data->all(), [
-            'nama' => 'required',
-            'alamat' => 'required',
-            'kota' => 'required',
-            'notlp' => 'required',
-            'nama_bank' => 'required',
-            'no_rekening' => 'required',
-        ]);
-
-        return $validator;
-    }
-
     public function obatMasuk()
     {
         return $this->hasMany(ObatMasuk::class);
