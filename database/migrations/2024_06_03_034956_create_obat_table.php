@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('obats', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama');
-            $table->integer('jenis_obat');
+            $table->string('jenis_obat');
             $table->integer('harga_jual');
             $table->integer('harga_beli');
             $table->integer('stok');

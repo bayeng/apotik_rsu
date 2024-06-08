@@ -11,7 +11,8 @@ class Obat extends Model
 
     public $guarded = ['id'];
 
-    public function totalObat() {
-
+    public function obatmasuks()
+    {
+        return $this->hasMany(ObatMasuk::class);
     }
 }

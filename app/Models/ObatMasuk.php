@@ -13,4 +13,9 @@ class ObatMasuk extends Model
     {
         return $this->belongsTo(Suplier::class);
     }
+
+    public function obat()
+    {
+        return $this->belongsTo(Obat::class);
+    }
 }
