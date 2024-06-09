@@ -47,7 +47,6 @@ class ObatMasukController extends Controller
     public function store(ObatMasukRequest $request)
     {
         try {
-
             $validatedObatMasuk = $request->validated();
             $obatMasuk = ObatMasuk::create($validatedObatMasuk);
 
@@ -61,5 +60,5 @@ class ObatMasukController extends Controller
             return new ResponseResource(false, 'Failed to fetch data', null);
         }
     }
-    
+
 }
