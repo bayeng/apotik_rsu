@@ -19,7 +19,9 @@ class SuplierSeeder extends Seeder
             'kota'=>'ini merupakan kota',
             'notlp'=>'0988090009',
             'nama_bank'=>'bank kunam',
-            'no_rekening'=>'090808098'
+            'no_rekening'=>'090808098',
+            'created_at'=>now(),
+            'updated_at'=>now()
         ]);
 
         DB::table('supliers')->insert([
@@ -28,7 +30,9 @@ class SuplierSeeder extends Seeder
             'kota'=>'ini merupakan kota',
             'notlp'=>'0988090009',
             'nama_bank'=>'bank kunam',
-            'no_rekening'=>'090808098'
+            'no_rekening'=>'090808098',
+            'created_at'=>now(),
+            'updated_at'=>now()
         ]);
 
         DB::table('supliers')->insert([
@@ -37,7 +41,9 @@ class SuplierSeeder extends Seeder
             'kota'=>'ini merupakan kota',
             'notlp'=>'0988090009',
             'nama_bank'=>'bank kunam',
-            'no_rekening'=>'090808098'
+            'no_rekening'=>'090808098',
+            'created_at'=>now(),
+            'updated_at'=>now()
         ]);
     }
 }

@@ -58,4 +58,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function obatMasuk()
+    {
+        return $this->hasMany(ObatMasuk::class);
+    }
 }

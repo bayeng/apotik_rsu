@@ -11,21 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
         Schema::create('permintaan_obats', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_user');
-            $table->foreign('id_user')->references('id')->on('user');
+            $table->foreignId('id_user')->constrained(table: 'users');
             $table->integer('jumlah')->nullable();
-            $table->integer('id_tujuan');
-            $table->foreign('id_tujuan')->references('id')->on('tujuan');
-            $table->enum('status', [""]);
+            $table->foreignId('id_tujuan')->constrained(table: 'tujuans');
+            $table->enum('status', ["SUKSES"]);
             $table->dateTime('tgl_validasi')->nullable();
             $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -33,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('permintaan_obat');
+        Schema::dropIfExists('permintaan_obats');
     }
 };

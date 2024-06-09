@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
-        Schema::create('tujuans', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nama');
+        Schema::create('total_obats', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('id_permintaan_obat')->constrained(table: 'permintaan_obats');
+            $table->foreignId('id_obat')->constrained(table: 'obats');
+            $table->integer('jumlah');
             $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tujuan');
+        Schema::dropIfExists('total_obats');
     }
 };

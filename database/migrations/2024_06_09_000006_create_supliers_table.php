@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
         Schema::create('supliers', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('nama');
             $table->string('alamat');
             $table->string('kota');
@@ -23,8 +21,6 @@ return new class extends Migration
             $table->string('no_rekening');
             $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('suplier');
+        Schema::dropIfExists('supliers');
     }
 };

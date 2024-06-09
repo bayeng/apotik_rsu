@@ -32,10 +32,10 @@ class SuplierController extends Controller
     {
         try {
             $suplier = Suplier::find($id);
-
             if (!$suplier) {
                 return new ResponseResource(false, 'Data suplier tidak ditemukan', null);
             }
+
             return new SuplierResource(true, 'Data suplier ditemukan', $suplier);
         }  catch (\Exception $e) {
             Log::error('Error fetching suplier data: ' . $e->getMessage());

@@ -11,19 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
-        Schema::create('obats', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('tujuans', function (Blueprint $table) {
+            $table->id();
             $table->string('nama');
-            $table->string('jenis_obat');
-            $table->integer('harga_jual');
-            $table->integer('harga_beli');
-            $table->integer('stok');
             $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -31,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('obat');
+        Schema::dropIfExists('tujuans');
     }
 };

@@ -20,8 +20,11 @@ class DatabaseSeeder extends Seeder
 //            'email' => 'test@example.com',
 //        ]);
         $this->call([
+            // Parent DB
             SuplierSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            ObatSeeder::class,
+            //Child DB
         ]);
     }
 }
