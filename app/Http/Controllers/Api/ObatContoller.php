@@ -29,7 +29,7 @@ class ObatContoller extends Controller
     {
         try {
             $obat = Obat::find($id);
-            if ($obat) {
+            if (!$obat) {
                 return new ResponseResource(true, 'data obat tidak ada', null);
             }
             return new ResponseResource(true, 'data obat ditemukan', $obat);
