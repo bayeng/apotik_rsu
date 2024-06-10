@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('permintaan_obats', function (Blueprint $table) {
+        Schema::create('riwayat_obats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user')->constrained(table: 'users');
-            $table->integer('jumlah')->nullable();
-            $table->foreignId('id_tujuan')->constrained(table: 'tujuans');
-            $table->enum('status', ["SUKSES"]);
-            $table->dateTime('tgl_validasi')->nullable();
+            $table->string('nama_obat');
+            $table->string('jumlah');
+            $table->string('harga');
+            $table->foreignId('id_obat_keluar')->constrained(table: 'obat_keluars');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('permintaan_obats');
+        Schema::dropIfExists('riwayat_obats');
     }
 };
