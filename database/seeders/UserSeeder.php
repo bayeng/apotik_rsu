@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 10) as $index) {
+        foreach (range(1, 20) as $index) {
             DB::table('users')->insert([
                 'nama' => $faker->name,
                 'jenis_kelamin' => $faker->randomElement(['Laki-laki', 'Perempuan']),
