@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
             'nama'=> 'required',
             'username' => 'required | unique:users,username',
             'password' => 'required',
-            'email' => 'required',
+            'email' => 'required ',
             'role' => 'sometimes',
             'jenis_kelamin' => 'required',
             'tempat_lahir' => 'required',
