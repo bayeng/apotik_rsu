@@ -11,8 +11,8 @@ class Suplier extends Model
     use HasFactory;
     public $guarded = ['id'];
 
-    public function obatMasuk()
+    public function obatmasuk()
     {
-        return $this->hasMany(ObatMasuk::class);
+        return $this->hasMany(ObatMasuk::class, 'id_suplier');
     }
 }

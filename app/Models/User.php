@@ -59,7 +59,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function obatMasuk()
+    public function obatmasuk()
     {
         return $this->hasMany(ObatMasuk::class);
     }
