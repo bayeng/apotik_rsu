@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             SuplierSeeder::class,
             UserSeeder::class,
             ObatSeeder::class,
+            TujuanSeeder::class,
             //Child DB
         ]);
     }

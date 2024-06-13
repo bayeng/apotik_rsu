@@ -24,7 +24,7 @@ class ObatMasukController extends Controller
             return new ResponseResource(true, 'list data obat-masuk', $obatMasuk);
 
         } catch (\Exception $e) {
-            Log::error('Error fetching suplier data: ' . $e->getMessage());
+            Log::error('Error fetching obat-masuks data: ' . $e->getMessage());
             return new ResponseResource(false, 'Failed to fetch data', null);
         }
     }
@@ -39,7 +39,7 @@ class ObatMasukController extends Controller
             return new ResponseResource(false, 'detail data obat-masuk ', $obatMasuk);
 
         } catch (\Exception $e) {
-            Log::error('Error fetching suplier data: ' . $e->getMessage());
+            Log::error('Error fetching obat-masuks data: ' . $e->getMessage());
             return new ResponseResource(false, 'Failed to fetch data', null);
         }
     }
@@ -56,7 +56,7 @@ class ObatMasukController extends Controller
             return new ResponseResource(true, 'berhasil membuat data Obat-Masuk', $obatMasuk);
 
         } catch (\Exception $e) {
-            Log::error('Error fetching suplier data: ' . $e->getMessage());
+            Log::error('Error fetching obat-masuks data: ' . $e->getMessage());
             return new ResponseResource(false, 'Failed to fetch data', null);
         }
     }

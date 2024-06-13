@@ -10,3 +10,5 @@ Route::apiResource('/supliers', \App\Http\Controllers\Api\SuplierController::cla
 Route::apiResource('/obats', \App\Http\Controllers\Api\ObatContoller::class);
 
 Route::apiResource('/obatmasuks', \App\Http\Controllers\Api\ObatMasukController::class);
+
+Route::apiResource('/tujuans', \App\Http\Controllers\Api\TujuanController::class);

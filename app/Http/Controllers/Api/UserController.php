@@ -21,7 +21,7 @@ class UserController extends Controller
             return new ResponseResource(true, 'list data users', $users);
 
         } catch (\Exception $e) {
-            Log::error('Error fetching suplier data: ' . $e->getMessage());
+            Log::error('Error fetching users data: ' . $e->getMessage());
             return new ResponseResource(false, 'Failed to fetch data', null);
         }
 
@@ -36,7 +36,7 @@ class UserController extends Controller
             }
             return new ResponseResource(true, 'Data user ditemukan', $users);
         } catch (\Exception $e) {
-            Log::error('Error fetching suplier data: ' . $e->getMessage());
+            Log::error('Error fetching users data: ' . $e->getMessage());
             return new ResponseResource(false, 'Failed to fetch data', null);
         }
 
@@ -49,7 +49,7 @@ class UserController extends Controller
             $users = User::create($validateUser);
             return new ResponseResource(true, 'Data user berhasil ditambahkan', $users);
         } catch (\Exception $e) {
-            Log::error('Error fetching suplier data: ' . $e->getMessage());
+            Log::error('Error fetching users data: ' . $e->getMessage());
             return new ResponseResource(false, 'Failed to fetch data', null);
         }
 
@@ -67,7 +67,7 @@ class UserController extends Controller
 
             return new ResponseResource(true, 'Berhasil update data user', $user);
         } catch (\Exception $e) {
-            Log::error('Error fetching suplier data: ' . $e->getMessage());
+            Log::error('Error fetching users data: ' . $e->getMessage());
             return new ResponseResource(false, 'Failed to fetch data', null);
         }
 
@@ -83,7 +83,7 @@ class UserController extends Controller
             $users->delete();
             return new ResponseResource(true, 'Data user berhasil dihapus', $users);
         } catch (\Exception $e) {
-            Log::error('Error fetching suplier data: ' . $e->getMessage());
+            Log::error('Error fetching users data: ' . $e->getMessage());
             return new ResponseResource(false, 'Failed to fetch data', null);
         }
 
