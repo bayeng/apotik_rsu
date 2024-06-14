@@ -14,13 +14,15 @@ class ObatKeluarController extends Controller
 {
     public function index() {
         try {
-            $obatKeluarData = ObatKeluar::with('riwayatobat')->get();
+            $obatKeluarData = ObatKeluar::with('riwayatobat')->latest()->get();
 
             $result = $obatKeluarData->map(function($obatKeluar) {
                 return [
                     'id' => $obatKeluar->id,
                     'id_user' => $obatKeluar->id_user,
+                    'nama_user' => $obatKeluar->user->nama,
                     'id_tujuan' => $obatKeluar->id_tujuan,
+                    'nama_tujuan' => $obatKeluar->tujuan->nama,
                     'total_harga' => $obatKeluar->total_harga,
                     'created_at' => $obatKeluar->created_at,
                     'updated_at' => $obatKeluar->updated_at,
@@ -64,7 +66,9 @@ class ObatKeluarController extends Controller
                 return [
                     'id' => $obatKeluar->id,
                     'id_user' => $obatKeluar->id_user,
+                    'nama_user' => $obatKeluar->user->nama,
                     'id_tujuan' => $obatKeluar->id_tujuan,
+                    'nama_tujuan' => $obatKeluar->tujuan->nama,
                     'total_harga' => $obatKeluar->total_harga,
                     'created_at' => $obatKeluar->created_at,
                     'updated_at' => $obatKeluar->updated_at,
@@ -129,7 +133,9 @@ class ObatKeluarController extends Controller
             $result = [
                 'id' => $obatKeluar->id,
                 'id_user' => $obatKeluar->id_user,
+                'nama_user' => $obatKeluar->user->nama,
                 'id_tujuan' => $obatKeluar->id_tujuan,
+                'nama_tujuan' => $obatKeluar->tujuan->nama,
                 'total_harga' => $obatKeluar->total_harga,
                 'created_at' => $obatKeluar->created_at,
                 'updated_at' => $obatKeluar->updated_at,
