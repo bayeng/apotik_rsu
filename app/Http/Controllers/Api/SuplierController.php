@@ -17,7 +17,7 @@ class SuplierController extends Controller
     public function index()
     {
         try {
-            $supliers = Suplier::with('obatmasuk')->get();
+            $supliers = Suplier::latest()->get();
 
             if ($supliers->isEmpty()) {
                 return new ResponseResource(false, 'Data suplier tidak ditemukan', null);
