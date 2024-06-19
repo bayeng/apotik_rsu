@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ObatKeluarRequest;
 use App\Http\Resources\ResponseResource;
+use App\Models\Obat;
 use App\Models\ObatKeluar;
 use App\Models\RiwayatObat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ObatKeluarController extends Controller
@@ -58,33 +60,32 @@ class ObatKeluarController extends Controller
         }
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         try {
-            $obatKeluarData = ObatKeluar::where('obat_keluars.id', $id)->with('riwayatobat')->get();
+            $obatKeluarData = ObatKeluar::with('user', 'tujuan', 'riwayatObat')->findOrFail($id);
 
-            $result = $obatKeluarData->map(function($obatKeluar) {
-                return [
-                    'id' => $obatKeluar->id,
-                    'id_user' => $obatKeluar->id_user,
-                    'nama_user' => $obatKeluar->user->nama,
-                    'id_tujuan' => $obatKeluar->id_tujuan,
-                    'nama_tujuan' => $obatKeluar->tujuan->nama,
-                    'total_harga' => $obatKeluar->total_harga,
-                    'created_at' => $obatKeluar->created_at,
-                    'updated_at' => $obatKeluar->updated_at,
-                    'riwayat_obat' => $obatKeluar->riwayatObat->map(function($riwayatObat) {
-                        return [
-                            'id' => $riwayatObat->id,
-                            'nama_obat' => $riwayatObat->nama_obat,
-                            'jumlah' => $riwayatObat->jumlah,
-                            'harga' => $riwayatObat->harga,
-                            'id_obat_keluar' => $riwayatObat->id_obat_keluar,
-                            'created_at' => $riwayatObat->created_at,
-                            'updated_at' => $riwayatObat->updated_at,
-                        ];
-                    })
-                ];
-            });
+            $result = [
+                'id' => $obatKeluarData->id,
+                'id_user' => $obatKeluarData->id_user,
+                'nama_user' => $obatKeluarData->user->nama,
+                'id_tujuan' => $obatKeluarData->id_tujuan,
+                'nama_tujuan' => $obatKeluarData->tujuan->nama,
+                'total_harga' => $obatKeluarData->total_harga,
+                'created_at' => $obatKeluarData->created_at,
+                'updated_at' => $obatKeluarData->updated_at,
+                'riwayat_obat' => $obatKeluarData->riwayatObat->map(function($riwayatObat) {
+                    return [
+                        'id' => $riwayatObat->id,
+                        'nama_obat' => $riwayatObat->nama_obat,
+                        'jumlah' => $riwayatObat->jumlah,
+                        'harga' => $riwayatObat->harga,
+                        'id_obat_keluar' => $riwayatObat->id_obat_keluar,
+                        'created_at' => $riwayatObat->created_at,
+                        'updated_at' => $riwayatObat->updated_at,
+                    ];
+                }),
+            ];
 
             return response()->json([
                 'success' => true,
@@ -92,7 +93,7 @@ class ObatKeluarController extends Controller
                 'data' => $result
             ], 200);
         } catch (\Exception $e) {
-            Log::error('Error fetching obat data: ' . $e->getMessage());
+            Log::error('Error fetching obat keluar data: ' . $e->getMessage());
 
             return response()->json([
                 'success' => false,
@@ -103,6 +104,7 @@ class ObatKeluarController extends Controller
             ], 500);
         }
     }
+
 
     public function store(ObatKeluarRequest $request) {
         try {
@@ -121,12 +123,13 @@ class ObatKeluarController extends Controller
             $riwayatObatResult = [];
             for($i = 0; $i < count($requestData['nama_obat']); $i++) {
                 $riwayatObatData = [
-                    'nama_obat' => $requestData['nama_obat'][$i],
+                    'nama_obat' => Obat::where('id', $requestData['nama_obat'][$i])->first()->nama,
                     'jumlah' => $requestData['jumlah'][$i],
                     'harga' => $requestData['harga'][$i],
                     'id_obat_keluar' => $idObatKeluar
                 ];
                 $riwayatObat = RiwayatObat::create($riwayatObatData);
+                Obat::where('nama', $requestData['nama_obat'][$i])->update(['stok' => DB::raw('stok - ' . $requestData['jumlah'][$i])]);
 
                 $riwayatObatResult[] = $riwayatObatData;
             }

@@ -24,15 +24,15 @@ class ObatKeluarRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_user' => 'required|integer',
-            'id_tujuan' => 'required|integer',
-            'total_harga' => 'required|numeric',
-            'nama_obat' => 'required|array',
-            'nama_obat.*' => 'required|string',
-            'jumlah' => 'required|array',
-            'jumlah.*' => 'required|integer',
-            'harga' => 'required|array',
-            'harga.*' => 'required|numeric',
+            'id_user' => 'required',
+            'id_tujuan' => 'required',
+            'total_harga' => 'required',
+            'nama_obat' => 'required',
+            'nama_obat.*' => 'required',
+            'jumlah' => 'required',
+            'jumlah.*' => 'required',
+            'harga' => 'required',
+            'harga.*' => 'required',
         ];
     }
 
