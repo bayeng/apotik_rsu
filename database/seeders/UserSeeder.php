@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
         foreach (range(1, 20) as $index) {
             DB::table('users')->insert([
                 'nama' => $faker->name,
-                'jenis_kelamin' => $faker->randomElement(['Laki-laki', 'Perempuan']),
+                'jenis_kelamin' => $faker->boolean,
                 'tempat_lahir' => $faker->city,
                 'tgl_lahir' => $faker->date(),
                 'gol_darah' => $faker->randomElement(['A', 'B', 'AB', 'O']),
@@ -32,8 +32,8 @@ class UserSeeder extends Seeder
                 'username' => $faker->unique()->userName,
                 'password' => Hash::make('123'),
                 'role' => $faker->randomElement(['ADMIN', 'PEGAWAI']),
-                'email' => $faker->unique()->safeEmail,
-                'email_verified_at' => now(),
+//                'email' => $faker->unique()->safeEmail,
+//                'email_verified_at' => now(),
                 'remember_token' => \Illuminate\Support\Str::random(10),
                 'created_at' => now(),
                 'updated_at' => now()

@@ -25,9 +25,8 @@ class UserRequest extends FormRequest
     {
         $rules = [
             'nama'=> 'required',
-            'username' => 'required | unique:users,username',
+            'username' => 'required',
             'password' => 'required',
-            'email' => 'required ',
             'role' => 'sometimes',
             'jenis_kelamin' => 'required',
             'tempat_lahir' => 'required',
@@ -42,19 +41,18 @@ class UserRequest extends FormRequest
         if ($this->isMethod('put') || $this->isMethod('patch')) {
 
             $rules = [
-                'nama'=> 'sometimes',
-                'email' => 'sometimes|unique:users.email ',
-                'username' => 'sometimes|unique:users,username',
+                'nama'=> 'required',
+                'username' => 'sometimes',
                 'password' => 'sometimes',
-                'role' => 'sometimes',
-                'jenis_kelamin' => 'sometimes',
-                'tempat_lahir' => 'sometimes',
-                'tgl_lahir' => 'sometimes',
-                'gol_darah' => 'sometimes',
-                'agama' => 'sometimes',
-                'alamat' => 'sometimes',
-                'notlp' => 'sometimes',
-                'nip' => 'sometimes',
+                'role' => 'required',
+                'jenis_kelamin' => 'required',
+                'tempat_lahir' => 'required',
+                'tgl_lahir' => 'required',
+                'gol_darah' => 'required',
+                'agama' => 'required',
+                'alamat' => 'required',
+                'notlp' => 'required',
+                'nip' => 'required',
             ];
         }
 

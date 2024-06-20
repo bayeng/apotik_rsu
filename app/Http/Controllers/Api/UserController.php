@@ -34,6 +34,7 @@ class UserController extends Controller
             if (!$users) {
                 return new ResponseResource(false, 'Data users tidak ditemukan', null);
             }
+
             return new ResponseResource(true, 'Data user ditemukan', $users);
         } catch (\Exception $e) {
             Log::error('Error fetching users data: ' . $e->getMessage());

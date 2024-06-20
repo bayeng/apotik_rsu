@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('jenis_kelamin');
+            $table->boolean('jenis_kelamin');
             $table->string('tempat_lahir');
             $table->string('tgl_lahir');
             $table->string('gol_darah');
@@ -25,8 +25,6 @@ return new class extends Migration
             $table->string('username');
             $table->string('password');
             $table->enum('role', ["ADMIN","PEGAWAI"])->default('PEGAWAI');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
