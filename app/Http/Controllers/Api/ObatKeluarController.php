@@ -122,6 +122,7 @@ class ObatKeluarController extends Controller
             // tabel riwayat_obats
             $riwayatObatResult = [];
             for($i = 0; $i < count($requestData['nama_obat']); $i++) {
+                $obat = Obat::find($requestData['nama_obat'][$i]);
                 $riwayatObatData = [
                     'nama_obat' => Obat::where('id', $requestData['nama_obat'][$i])->first()->nama,
                     'jumlah' => $requestData['jumlah'][$i],
@@ -129,8 +130,7 @@ class ObatKeluarController extends Controller
                     'id_obat_keluar' => $idObatKeluar
                 ];
                 $riwayatObat = RiwayatObat::create($riwayatObatData);
-                Obat::where('nama', $requestData['nama_obat'][$i])->update(['stok' => DB::raw('stok - ' . $requestData['jumlah'][$i])]);
-
+                $obat->decrement('stok', intval($requestData['jumlah'][$i]));
                 $riwayatObatResult[] = $riwayatObatData;
             }
             $result = [
