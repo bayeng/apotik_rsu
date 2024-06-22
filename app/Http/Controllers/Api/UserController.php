@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\ResponseResource;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
@@ -88,5 +90,31 @@ class UserController extends Controller
             return new ResponseResource(false, 'Failed to fetch data', null);
         }
 
+    }
+
+    public function login(Request $request)
+    {
+        try {
+            $validatedUser = $request->validate([
+                'username'=>'required',
+                'password'=>'required'
+            ]);
+
+            $dataUser = User::where('username', $validatedUser['username'])->first();
+            if (!$dataUser) {
+
+                return new ResponseResource(false, 'username atau password salah', null);
+            }
+
+            if (!Hash::check($validatedUser['password'], $dataUser->password)) {
+
+                return new ResponseResource(false, 'username atau password salah', null);
+            }
+
+            return new ResponseResource(true, 'berhasil login', $dataUser);
+        } catch (\Exception $e) {
+            Log::error('Error fetching users data: ' . $e->getMessage());
+            return new ResponseResource(false, 'Failed to fetch data', null);
+        }
     }
 }

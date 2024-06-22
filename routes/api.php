@@ -16,3 +16,5 @@ Route::apiResource('/obatmasuks', \App\Http\Controllers\Api\ObatMasukController:
 Route::apiResource('/tujuans', \App\Http\Controllers\Api\TujuanController::class);
 
 Route::apiResource('/obatkeluars', ObatKeluarController::class);
+
+Route::post('/login', [\App\Http\Controllers\Api\UserController::class, 'login']);
