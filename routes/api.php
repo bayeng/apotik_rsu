@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\ObatKeluarController;
 use App\Http\Controllers\Api\ObatMasukController;
 use Illuminate\Http\Request;
@@ -18,3 +19,8 @@ Route::apiResource('/tujuans', \App\Http\Controllers\Api\TujuanController::class
 Route::apiResource('/obatkeluars', ObatKeluarController::class);
 
 Route::post('/login', [\App\Http\Controllers\Api\UserController::class, 'login']);
+
+Route::get('/transaksimasuk', [HomeController::class, 'transaksimasuk']);
+Route::get('/transaksikeluar', [HomeController::class, 'transaksikeluar']);
+Route::get('/omzet', [HomeController::class, 'omzettoday']);
+Route::get('/dangerstok', [HomeController::class, 'dangerstok']);
