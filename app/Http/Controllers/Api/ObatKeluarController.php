@@ -107,10 +107,15 @@ class ObatKeluarController extends Controller
 
 
     public function store(ObatKeluarRequest $request) {
+        DB::beginTransaction();
         try {
             $requestData = $request->validated();
-            $result = [];
-            // tabel obat_keluars
+
+            if (count($requestData['nama_obat']) !== count($requestData['jumlah']) ||
+                count($requestData['nama_obat']) !== count($requestData['harga'])) {
+                return new ResponseResource(false, 'Data obat, jumlah, dan harga tidak konsisten', null);
+            }
+
             $obatKeluarsData = [
                 'id_user' => $requestData['id_user'],
                 'id_tujuan' => $requestData['id_tujuan'],
@@ -119,20 +124,28 @@ class ObatKeluarController extends Controller
             $obatKeluar = ObatKeluar::create($obatKeluarsData);
             $idObatKeluar = $obatKeluar->id;
 
-            // tabel riwayat_obats
             $riwayatObatResult = [];
             for($i = 0; $i < count($requestData['nama_obat']); $i++) {
                 $obat = Obat::find($requestData['nama_obat'][$i]);
-                $riwayatObatData = [
-                    'nama_obat' => Obat::where('id', $requestData['nama_obat'][$i])->first()->nama,
-                    'jumlah' => $requestData['jumlah'][$i],
-                    'harga' => $requestData['harga'][$i],
-                    'id_obat_keluar' => $idObatKeluar
-                ];
-                $riwayatObat = RiwayatObat::create($riwayatObatData);
-                $obat->decrement('stok', intval($requestData['jumlah'][$i]));
-                $riwayatObatResult[] = $riwayatObatData;
+
+                if (intval($requestData['jumlah'][$i]) <= intval($obat->stok)) {
+                    $riwayatObatData = [
+                        'nama_obat' => $obat->nama,
+                        'jumlah' => $requestData['jumlah'][$i],
+                        'harga' => $requestData['harga'][$i],
+                        'id_obat_keluar' => $idObatKeluar
+                    ];
+                    $riwayatObat = RiwayatObat::create($riwayatObatData);
+                    $obat->decrement('stok', intval($requestData['jumlah'][$i]));
+                    $riwayatObatResult[] = $riwayatObatData;
+                } else {
+                    DB::rollBack();
+                    return new ResponseResource(false, 'Gagal menambahkan data obat keluar: Stok obat tidak mencukupi', null);
+                }
             }
+
+            DB::commit();
+
             $result = [
                 'id' => $obatKeluar->id,
                 'id_user' => $obatKeluar->id_user,
@@ -147,8 +160,10 @@ class ObatKeluarController extends Controller
 
             return new ResponseResource(true, 'Berhasil menambahkan data obat keluar', $result);
         } catch (\Exception $e) {
+            DB::rollBack();
             Log::error('Error fetching obat data: ' . $e->getMessage());
             return new ResponseResource(false, 'Gagal menambahkan data obat keluar', null);
         }
     }
+
 }
