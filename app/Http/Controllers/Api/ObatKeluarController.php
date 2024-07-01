@@ -26,6 +26,8 @@ class ObatKeluarController extends Controller
                     'id_tujuan' => $obatKeluar->id_tujuan,
                     'nama_tujuan' => $obatKeluar->tujuan->nama,
                     'total_harga' => $obatKeluar->total_harga,
+                    'catatan' => $obatKeluar->catatan,
+                    'image' => '/storage/'.$obatKeluar->image,
                     'created_at' => $obatKeluar->created_at,
                     'updated_at' => $obatKeluar->updated_at,
                     'riwayat_obat' => $obatKeluar->riwayatObat->map(function($riwayatObat) {
@@ -72,6 +74,8 @@ class ObatKeluarController extends Controller
                 'id_tujuan' => $obatKeluarData->id_tujuan,
                 'nama_tujuan' => $obatKeluarData->tujuan->nama,
                 'total_harga' => $obatKeluarData->total_harga,
+                'catatan' => $obatKeluarData->catatan,
+                'image' => '/storage/'.$obatKeluarData->image,
                 'created_at' => $obatKeluarData->created_at,
                 'updated_at' => $obatKeluarData->updated_at,
                 'riwayat_obat' => $obatKeluarData->riwayatObat->map(function($riwayatObat) {
@@ -116,16 +120,25 @@ class ObatKeluarController extends Controller
                 return new ResponseResource(false, 'Data obat, jumlah, dan harga tidak konsisten', null);
             }
 
+            $uploadFolder = 'images/obat_keluar';
+            $imagePath = null;
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imagePath = $image->store($uploadFolder, 'public');
+            }
+
             $obatKeluarsData = [
                 'id_user' => $requestData['id_user'],
                 'id_tujuan' => $requestData['id_tujuan'],
                 'total_harga' => $requestData['total_harga'],
+                'catatan' => $requestData['catatan'],
+                'image' => $imagePath,
             ];
             $obatKeluar = ObatKeluar::create($obatKeluarsData);
             $idObatKeluar = $obatKeluar->id;
 
             $riwayatObatResult = [];
-            for($i = 0; $i < count($requestData['nama_obat']); $i++) {
+            for ($i = 0; $i < count($requestData['nama_obat']); $i++) {
                 $obat = Obat::find($requestData['nama_obat'][$i]);
 
                 if (intval($requestData['jumlah'][$i]) <= intval($obat->stok)) {
@@ -153,6 +166,8 @@ class ObatKeluarController extends Controller
                 'id_tujuan' => $obatKeluar->id_tujuan,
                 'nama_tujuan' => $obatKeluar->tujuan->nama,
                 'total_harga' => $obatKeluar->total_harga,
+                'catatan' => $obatKeluar->catatan,
+                'image' => '/storage/'.$obatKeluar->image,
                 'created_at' => $obatKeluar->created_at,
                 'updated_at' => $obatKeluar->updated_at,
                 'riwayat_obat' => $riwayatObatResult
@@ -165,5 +180,6 @@ class ObatKeluarController extends Controller
             return new ResponseResource(false, 'Gagal menambahkan data obat keluar', null);
         }
     }
+
 
 }

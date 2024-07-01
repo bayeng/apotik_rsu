@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('id_user')->constrained(table: 'users');
             $table->foreignId('id_tujuan')->constrained(table: 'tujuans');
             $table->integer('total_harga');
+            $table->text('catatan')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
