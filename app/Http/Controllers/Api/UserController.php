@@ -100,7 +100,7 @@ class UserController extends Controller
                 'password'=>'required'
             ]);
 
-            $dataUser = User::where('username', $validatedUser['username'])->first();
+            $dataUser = User::firstWhere('username', $validatedUser['username']);
             if (!$dataUser) {
 
                 return new ResponseResource(false, 'username atau password salah', null);
