@@ -71,7 +71,7 @@ class UserSeeder extends Seeder
                 'nip' => $faker->unique()->numberBetween(1000000000, 9999999999),
                 'username' => $faker->unique()->userName,
                 'password' => Hash::make('123'),
-                'role' => $faker->randomElement(['ADMIN', 'PEGAWAI']),
+                'role' => $faker->randomElement(['PEGAWAI']),
 //                'email' => $faker->unique()->safeEmail,
 //                'email_verified_at' => now(),
                 'remember_token' => \Illuminate\Support\Str::random(10),

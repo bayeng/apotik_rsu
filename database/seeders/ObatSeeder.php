@@ -15,10 +15,16 @@ class ObatSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create();
+        $namaObat = [
+            'Paracetamol', 'Bodrexin', 'Amoxicillin', 'Ibuprofen', 'Antangin',
+            'Diapet', 'Komix', 'Mixagrip', 'Panadol', 'Promag',
+            'Betadine', 'Bisolvon', 'Minyak Kayu Putih', 'Vicks', 'Tolak Angin',
+            'Eurycoma', 'Sanmol', 'Ceterizine', 'Puyer', 'Dulcolax'
+        ];
 
-        foreach (range(1, 20) as $index) {
+        foreach ($namaObat as $nama) {
             DB::table('obats')->insert([
-                'nama' => $faker->word,
+                'nama' => $nama,
                 'jenis_obat' => $faker->randomElement(['Tablet', 'Kapsul', 'Sirup', 'Salep', 'Injeksi']),
                 'harga_jual' => $faker->numberBetween(10000, 50000),
                 'harga_beli' => $faker->numberBetween(5000, 40000),
@@ -27,6 +33,5 @@ class ObatSeeder extends Seeder
                 'updated_at' => now(),
             ]);
         }
-
     }
 }
