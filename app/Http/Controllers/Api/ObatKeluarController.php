@@ -121,11 +121,11 @@ class ObatKeluarController extends Controller
             }
 
             $uploadFolder = 'images/obat_keluar';
-            $imagePath = null;
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                $imagePath = $image->store($uploadFolder, 'public');
-            }
+            $imagePath = 'images1.png';
+//            if ($request->hasFile('image')) {
+//                $image = $request->file('image');
+//                $imagePath = $image->store($uploadFolder, 'public');
+//            }
 
             $obatKeluarsData = [
                 'id_user' => $requestData['id_user'],

@@ -34,7 +34,7 @@ class ObatKeluarRequest extends FormRequest
             'harga' => 'required',
             'harga.*' => 'required',
             'catatan' => 'required',
-            'image' => 'required|image:jpeg,png,jpg,gif,svg',
+            'image' => 'sometimes|image:jpeg,png,jpg,gif,svg',
         ];
     }
 
